@@ -7,7 +7,7 @@ The currently supported architectures are ARMV7 and AARCH64.</br>
 ## Preparation
 1. Install a toolchain that matches your target architecture (ex. AArch64 cross-toolchain):
     ```sh
-    sudo apt install aarch64-linux-gnu
+    sudo apt install gcc-aarch64-linux-gnu
     ```
 2. Clone the repository:
     ```sh
@@ -17,7 +17,7 @@ The currently supported architectures are ARMV7 and AARCH64.</br>
     ```sh
     cd uniLoader
     ```
-4. Place your kernel and device tree blobs under the `blob/` directory.
+4. Place your kernel, device tree blobs and ramdisk (optional) under the `blob/` directory.
 
 ### Make Syntax
 ```sh
@@ -26,13 +26,14 @@ make ARCH=<arch> CROSS_COMPILE=<toolchain>
 
 ### Building Example
 ```sh
-sudo apt install aarch64-linux-gnu
+sudo apt install gcc-aarch64-linux-gnu
 git clone https://github.com/ivoszbg/uniLoader
 cd uniLoader
 cp /home/user/linux/arch/arm64/boot/Image blob/Image
 cp /home/user/linux/arch/arm64/boot/dts/exynos/exynos8895-dreamlte.dtb blob/dtb
-make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j4 dreamlte_defconfig
-make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j4
+cp /home/user/ramdisk.cpio blob/ramdisk
+make ARCH=aarch64 CROSS_COMPILE=aarch64-linux-gnu- -j4 dreamlte_defconfig
+make ARCH=aarch64 CROSS_COMPILE=aarch64-linux-gnu- -j4
 ```
 
 ### Usage
